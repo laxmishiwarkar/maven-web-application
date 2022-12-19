@@ -42,7 +42,7 @@ currentBuild.result= "FAILURE"
  finally {
 
 // Success or failure, always send notifications
-notifyBuild(currentBuild.result)
+sendSlackNotifications(currentBuild.result)
 
 }
 
