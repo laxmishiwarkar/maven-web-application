@@ -1,5 +1,5 @@
 node{
-    
+    try {   
 def mavenHome = tool name: 'maven3.8.5'
 echo "The job name is :  ${env.JOB_NAME} "
 echo "The build no.: ${env.BUILD_NUMBER}"
@@ -34,4 +34,38 @@ sshagent(['67759de7-550b-4350-8f64-22a3b6692e64']) {
 }
 */
 
+    }// try closing 
+ catch (e) {
+currentBuild.result= "FAILURE"
+}
+ finally {
+
+// Success or failure, always send notifications
+notifyBuild(currentBuild.result)
+
+}
+
+
 }//node closing 
+//Function for slack notification 
+def notifyBuild(StringbuildStatus = 'STARTED') {
+  // build status of null means successful
+buildStatus =  buildStatus ?: 'SUCCESS'
+// Default values
+def colorName = 'RED'
+def colorCode = '#FF0000'
+def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+def summary = "${subject} (${env.BUILD_URL})"
+// Override default values based on build status
+if(buildStatus == 'STARTED') {
+    color = 'YELLOW'
+colorCode = '#FFFF00'}
+ elseif(buildStatus == 'SUCCESS') {
+    color = 'GREEN'colorCode = '#00FF00'} 
+else{
+    color = 'RED'colorCode = '#FF0000'}
+// Send notifications
+slackSend (color: colorCode, message: summary)
+}
+}
+
