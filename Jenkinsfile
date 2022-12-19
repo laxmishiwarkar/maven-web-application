@@ -1,6 +1,6 @@
 node{
     try {   
-notifyBuild()
+sendSlackNotifications()
 def mavenHome = tool name: 'maven3.8.5'
 echo "The job name is :  ${env.JOB_NAME} "
 echo "The build no.: ${env.BUILD_NUMBER}"
@@ -49,7 +49,7 @@ notifyBuild(currentBuild.result)
 
 }//node closing 
 //Function for slack notification 
-def notifyBuild(StringbuildStatus = 'STARTED') {
+def sendSlackNotifications(StringbuildStatus = 'STARTED') {
   // build status of null means successful
 buildStatus =  buildStatus ?: 'SUCCESS'
 // Default values
