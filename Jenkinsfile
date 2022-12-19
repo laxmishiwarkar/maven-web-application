@@ -1,5 +1,6 @@
 node{
     try {   
+notifyBuild()
 def mavenHome = tool name: 'maven3.8.5'
 echo "The job name is :  ${env.JOB_NAME} "
 echo "The build no.: ${env.BUILD_NUMBER}"
