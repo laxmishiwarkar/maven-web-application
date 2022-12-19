@@ -67,5 +67,5 @@ else{
 // Send notifications
 slackSend (color: colorCode, message: summary)
 }
-}
+
 
