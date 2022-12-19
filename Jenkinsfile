@@ -60,7 +60,7 @@ def summary = "${subject} (${env.BUILD_URL})"
 if (buildStatus == 'STARTED') {
     color = 'YELLOW'
 colorCode = '#FFFF00'
-}elseif (buildStatus == 'SUCCESS') {
+} elseif (buildStatus == 'SUCCESS') {
     color = 'GREEN'colorCode = '#00FF00'
 }  else {
     color = 'RED'colorCode = '#FF0000'}
